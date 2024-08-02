@@ -844,30 +844,30 @@ export const menuItems = [
                 link: "/user-list",
                 parentId: 2,
             },
-            {
-                id: 1,
-                label: "Ban Controls",
-                link: "/ban-controls",
-                parentId: 2
-            },
+            // {
+            //     id: 1,
+            //     label: "Ban Controls",
+            //     link: "/ban-controls",
+            //     parentId: 2
+            // },
         ]
     },
-    {
-        id: 1,
-        label: "Filter Words",
-        link: "/filter-words/list",
-        icon: "bx bxs-chat",
-    },
-    {
-        id: 1,
-        label: "Subscriptions",
-        link: "/",
-        icon: "bx bxs-dollar-circle",
-        badge: {
-            variant: "danger",
-            text: 3
-        },
-    },
+    // {
+    //     id: 1,
+    //     label: "Filter Words",
+    //     link: "/filter-words/list",
+    //     icon: "bx bxs-chat",
+    // },
+    // {
+    //     id: 1,
+    //     label: "Subscriptions",
+    //     link: "/",
+    //     icon: "bx bxs-dollar-circle",
+    //     badge: {
+    //         variant: "danger",
+    //         text: 3
+    //     },
+    // },
     {
         id: 1,
         label: "Notifications",
