@@ -28,8 +28,8 @@ export default {
 	},
 	data() {
 		return {
-			username: "admin",
-			password: "password",
+			username: "",
+			password: "",
 			submitted: false,
 			authError: null,
 			tryingToLogIn: false,
