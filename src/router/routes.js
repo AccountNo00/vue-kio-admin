@@ -707,6 +707,12 @@ export default [
   //   component: () => import("./views/sample-pages/two-step-verification-2"),
   // },
   {
+    path: "/admin-list",
+    name: "admin-list",
+    meta: { requiresAuth: true },
+    component: () => import("./views/_admin-management/list"),
+  },
+  {
     path: "/user-list",
     name: "user-list",
     meta: { requiresAuth: true },
@@ -716,7 +722,7 @@ export default [
     path: "/ban-controls",
     name: "ban-controls",
     meta: { requiresAuth: true },
-    component: () => import("./views/_user-management/ban-controls"),
+    component: () => import("./views/_admin-management/ban-controls"),
   },
   {
     path: "/filter-words/list",
