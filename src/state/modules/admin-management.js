@@ -1,10 +1,10 @@
 import $api from "../api";
 // import axios from "axios";
 export const actions = {
-    getAdmins({ rootGetters, dispatch }) {
+    getAdmins({ rootGetters, dispatch },pl) {
         return new Promise(function (resolve) {
             $api
-                .get(`admins`, {
+                .get(`admins?`+ new URLSearchParams(pl).toString(), {
                     headers: {
                         Authorization: rootGetters["auth/bearer_token"],
                     },
