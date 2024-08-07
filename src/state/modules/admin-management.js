@@ -1,10 +1,10 @@
 import $api from "../api";
 // import axios from "axios";
 export const actions = {
-    getUsers({ rootGetters, dispatch }) {
+    getAdmins({ rootGetters, dispatch }) {
         return new Promise(function (resolve) {
             $api
-                .get(`users`, {
+                .get(`admins`, {
                     headers: {
                         Authorization: rootGetters["auth/bearer_token"],
                     },
@@ -21,10 +21,10 @@ export const actions = {
                 });
         });
     },
-    createUser({ rootGetters, dispatch },pl) {
+    createAdmin({ rootGetters, dispatch },pl) {
         return new Promise(function (resolve) {
             $api
-                .post(`user`,pl,{
+                .post(`admin`,pl,{
                     headers: {
                         Authorization: rootGetters["auth/bearer_token"],
                     },
@@ -44,10 +44,10 @@ export const actions = {
                 });
         });
     },
-    updateUser({ rootGetters, dispatch },pl) {
+    updateAdmin({ rootGetters, dispatch },pl) {
         return new Promise(function (resolve) {
             $api
-                .post(`user/update/${pl.id}`,pl,{
+                .post(`admin/${pl.id}`,pl,{
                     headers: {
                         Authorization: rootGetters["auth/bearer_token"],
                     },
@@ -67,56 +67,10 @@ export const actions = {
                 });
         });
     },
-    changePassword({ rootGetters, dispatch },pl) {
+    deleteAdmin({ rootGetters, dispatch },pl) {
         return new Promise(function (resolve) {
             $api
-                .post(`user/update/${pl.id}`,pl,{
-                    headers: {
-                        Authorization: rootGetters["auth/bearer_token"],
-                    },
-                })
-                .then(function (res) {
-                    if (res.status == 200) {
-                        resolve(res.data);
-                    }
-                })
-                .catch(function (err) {
-                    if (err.response.status == 401) {
-                        dispatch("auth/logoutUser", {}, { root: true }).then(() => { });
-                    }
-                    if(err.response.status == 422){
-                        resolve(err.response.data.message);
-                    }
-                });
-        });
-    },
-    deleteUser({ rootGetters, dispatch },pl) {
-        return new Promise(function (resolve) {
-            $api
-                .delete(`user/${pl.id}`,{
-                    headers: {
-                        Authorization: rootGetters["auth/bearer_token"],
-                    },
-                })
-                .then(function (res) {
-                    if (res.status == 200) {
-                        resolve(res.data);
-                    }
-                })
-                .catch(function (err) {
-                    if (err.response.status == 401) {
-                        dispatch("auth/logoutUser", {}, { root: true }).then(() => { });
-                    }
-                    if(err.response.status == 422){
-                        resolve(err.response.data.message);
-                    }
-                });
-        });
-    },
-    isBan({ rootGetters, dispatch },pl) {
-        return new Promise(function (resolve) {
-            $api
-                .post(`user/ban/${pl.id}`,pl,{
+                .delete(`admin/${pl.id}`,{
                     headers: {
                         Authorization: rootGetters["auth/bearer_token"],
                     },

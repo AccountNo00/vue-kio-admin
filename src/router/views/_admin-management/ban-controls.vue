@@ -112,7 +112,7 @@ export default {
         };
     },
     methods: {
-		...mapActions("userManagement", {
+		...mapActions("adminManagement", {
 			adminCreate: "createAdmin",
 			adminList: "getAdmins",
 			adminUpdate: "updateAdmin",

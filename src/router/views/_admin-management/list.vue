@@ -46,21 +46,12 @@
                             </td>
                             <td>
                                 <div class="d-flex">
-                                    <button class="btn btn-light bt btn-sm d-flex mx-1" title="Change Password" @click="getData(data,true)">
-                                        <i class="bx bx-lock fs-5 m-0 p-0"></i>
-                                    </button>
-                                    <button class="btn btn-light bt btn-sm d-flex mx-1" title="EDIT" @click="getData(data,false)">
+                                    <button class="btn btn-light bt btn-sm d-flex mx-1" title="EDIT" @click="getData(data)">
                                         <i class="bx bx-edit fs-5 m-0 p-0"></i>
                                     </button>
-                                    <button v-if="data.is_ban == 0" class="btn btn-light text-success btn-sm d-flex mx-1" title="Ban" @click="changeBan(data,'ban')">
-                                        <i class="bx bx-toggle-right fs-5 m-0 p-0"></i>
-                                    </button>
-                                    <button v-if="data.is_ban == 1" class="btn btn-light text-danger btn-sm d-flex mx-1" title="Ban" @click="changeBan(data,'unban')">
-                                        <i class="bx bx-toggle-left fs-5 m-0 p-0"></i>
-                                    </button>
-                                    <!-- <button class="btn btn-light text-danger btn-sm d-flex mx-1" title="DELETE" @click="deleteUser(data)">
+                                    <button class="btn btn-light text-danger btn-sm d-flex mx-1" title="DELETE" @click="deleteUser(data)">
                                         <i class="bx bx-trash fs-5 m-0 p-0"></i>
-                                    </button> -->
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -73,10 +64,10 @@
                 v-model="edit_modal" 
                 no-close-on-backdrop
                 hide-footer
-                size="md"
-                title="EDIT USER" 
+                size="lg"
+                title="VIEW USER" 
                 >
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-6">
                         <b-form-group
                             class="mb-3"
@@ -85,12 +76,12 @@
                             <b-form-select v-model="pl.role">
                                 <option value="admin">Admin</option>
                                 <option value="moderator">Moderator</option>
-                                <option value="seller">Seller</option>
-                                <option value="buyer">Buyer</option>
+                                <!-- <option value="seller">Seller</option>
+                                <option value="buyer">Buyer</option> -->
                             </b-form-select>
                         </b-form-group>
                     </div>
-                </div> -->
+                </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="mb-3">
@@ -108,87 +99,32 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 mb-3">
+                    <div class="col-6 mb-3">
                         <label>EMAIL ADDRESS</label>
                         <input class="form-control" type="text" v-model="pl.email_address">
                     </div>
+                    <div class="col-6 mb-3">
+                        <label>COMPLETE ADDRESS</label>
+                        <input class="form-control" type="text" v-model="pl.address">
+                    </div>
                 </div>
-                <!-- <div class="row">
+                <hr>
+                <div class="row">
                     <div class="col-12">
                         <label>NEW PASSWORD</label>
                         <input class="form-control" placeholder="Enter new password" type="text" v-model="pl.new_pFassword">
                     </div>
-                </div> -->
+                </div>
                 <div class="text-end mt-3">
                     <b-button class="mx-1" variant="secondary" @click="edit_modal = false">Close</b-button>
                     <b-button class="mx-1" variant="info" @click="updateUser()">Update</b-button>
                 </div>
             </b-modal>
             <b-modal 
-                v-model="change_password_modal" 
-                no-close-on-backdrop
-                hide-footer
-                size="md"
-                title="CHANGE PASSWORD" 
-                >
-                <div class="row mb-3">
-                    <div class="col-12">
-                        <b-form-group class="mb-3" id="input-group-2" label="New Password" label-for="password">
-                            <div class="d-flex">
-                                <b-form-input v-if="showPassword" class="input eye-width" id="password"
-                                    v-model="pl_change.password" type="text" placeholder="Enter your password" :class="{
-                                        'is-invalid':
-                                            submitted && v$.pl_change.password.$error,
-                                    }">
-                                </b-form-input>
-                                <b-form-input v-else class="input eye-width" id="password" v-model="pl_change.password"
-                                    type="password" placeholder="Enter your password" :class="{
-                                        'is-invalid':
-                                            submitted && v$.pl_change.password.$error,
-                                    }">
-                                </b-form-input>
-                                <span @click="toggleShow"  class="icon is-small is-right eye-btn">
-                                    <i class="fas"
-                                        :class="{ 'fa-eye-slash': showPassword, 'fa-eye': !showPassword }"></i>
-                                </span>
-                            </div>
-                        </b-form-group>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <b-form-group class="mb-3" id="input-group-2" label="Confirm Password" label-for="password">
-                            <div class="d-flex">
-                                <b-form-input v-if="showConfirm" class="input eye-width" id="password2"
-                                    v-model="pl_change.confirm_password" type="text" placeholder="Enter your password" :class="{
-                                        'is-invalid':
-                                            submitted && v$.pl_change.confirm_password.$error,
-                                    }">
-                                </b-form-input>
-                                <b-form-input v-else class="input eye-width" id="password2" v-model="pl_change.confirm_password"
-                                    type="password" placeholder="Enter your password" :class="{
-                                        'is-invalid':
-                                            submitted && v$.pl_change.confirm_password.$error,
-                                    }">
-                                </b-form-input>
-                                <span @click="toggleShowConfirm"  class="icon is-small is-right eye-btn">
-                                    <i class="fas"
-                                        :class="{ 'fa-eye-slash': showConfirm, 'fa-eye': !showConfirm }"></i>
-                                </span>
-                            </div>
-                        </b-form-group>
-                    </div>
-                </div>
-                <div class="text-end mt-3">
-                    <b-button class="mx-1" variant="secondary" @click="change_password_modal = false">Close</b-button>
-                    <b-button class="mx-1" variant="info" @click="changePass()">Change Password</b-button>
-                </div>
-            </b-modal>
-            <b-modal 
                 v-model="create_modal" 
                 no-close-on-backdrop
                 hide-footer
-                size="md"
+                size="lg"
                 title="CREATE NEW USER" 
                 >
                 <div class="row">
@@ -198,39 +134,28 @@
                             label="Role"
                             label-for="formrow-inputSearch">
                             <b-form-select v-model="pl_create.role">
-                                <option value="seller">Seller</option>
+                                <option value="admin">Admin</option>
+                                <option value="moderator">Moderator</option>
+                                <!-- <option value="seller">Seller</option>
+                                <option value="buyer">Buyer</option> -->
                             </b-form-select>
                         </b-form-group>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="mb-3">
                             <label>FIRST NAME</label>
                             <input class="form-control" type="text" v-model="pl_create.first_name">
                         </div>
-                    </div>
-                    <div class="col-6">
                         <div class="mb-3">
                             <label>LAST NAME</label>
                             <input class="form-control" type="text" v-model="pl_create.last_name">
                         </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="mb-3">
-                        <label>USERNAME</label>
-                        <input class="form-control" type="text" v-model="pl_create.username">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-6">
-                        <label>PASSWORD</label>
-                        <input class="form-control" placeholder="Enter password" type="password" v-model="pl_create.password">
-                    </div>
-                    <div class="col-6">
-                        <label>CONFIRM PASSWORD</label>
-                        <input class="form-control" placeholder="Enter confirm password" type="password" v-model="pl_create.confirm_password">
+                        <div class="mb-3">
+                            <label>USERNAME</label>
+                            <input class="form-control" type="text" v-model="pl_create.username">
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -241,6 +166,23 @@
                     <div class="col-6">
                         <label>BIRTHDAY</label>
                         <input class="form-control" type="date" v-model="pl_create.birthday">
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-6 mb">
+                        <label>PASSWORD</label>
+                        <input class="form-control" placeholder="Enter password" type="password" v-model="pl_create.password">
+                    </div>
+                    <div class="col-6 mb">
+                        <label>CONFIRM PASSWORD</label>
+                        <input class="form-control" placeholder="Enter confirm password" type="password" v-model="pl_create.confirm_password">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3">
+                        <label>COMPLETE ADDRESS</label>
+                        <input class="form-control" type="text" v-model="pl_create.address">
                     </div>
                 </div>
                 <div class="text-end mt-3">
@@ -304,7 +246,7 @@ export default {
                 email_address: null,
                 new_password: null,
                 address: null,
-                // role: null,
+                role: null,
                 birthday: null,
             },
             pl:{
@@ -316,58 +258,39 @@ export default {
                 address: null,
                 role: null,
             },
-            pl_change:{
-                password: null,
-                confirm_password: null,
-            },
             edit_data: [],
             edit_modal: false,
-            change_password_modal: false,
             create_modal: false,
             id: "",
-            showPassword: false,
-            showConfirm: false,
         };
     },
     methods: {
-		...mapActions("userManagement", {
-			userCreate: "createUser",
-			userList: "getUsers",
-			userUpdate: "updateUser",
-			userChangePass: "changePassword",
-			userDelete: "deleteUser",
-			changeBanStatus: "isBan",
+		...mapActions("adminManagement", {
+			adminCreate: "createAdmin",
+			adminList: "getAdmins",
+			adminUpdate: "updateAdmin",
+			adminDelete: "deleteAdmin",
 		}),
         async initList(p) {
 			var pl = {
 				page: p,
                 limit: this.filters.limit,
 			};
-			const data = await this.userList(pl);
+			const data = await this.adminList(pl);
 			this.data.list = data.data;
 			this.data.links = data.links;
 			this.data.current_page = data.current_page;
 			this.data.per_page = data.per_page;
 			this.data.last_page = data.last_page;
 		},
-        toggleShow() {
-            this.showPassword = !this.showPassword;
-        },
-        toggleShowConfirm() {
-            this.showConfirm = !this.showConfirm;
-        },
-        getData(data,changePassword){
-            console.log(data)
-            if(changePassword == true){
-                this.change_password_modal = true;
-            }else{
-                this.edit_modal = true;
-            }
+        getData(data){
+            this.edit_modal = true;
             this.id = data._id
             this.pl.username = data.username;
             this.pl.first_name = data.first_name;
             this.pl.last_name = data.last_name;
             this.pl.email_address = data.email_address;
+            this.pl.new_password = data.new_password;
             this.pl.address = data.address;
             this.pl.role = data.role;
         },
@@ -405,7 +328,7 @@ export default {
                 return result.value;
             });
             if (confirmed) {
-                const res = await this.userCreate(pl);
+                const res = await this.adminCreate(pl);
                 if (res.status == 200|| res.status == 'success') {
                     Swal.fire({
                         title: "Success",
@@ -426,72 +349,15 @@ export default {
                 }
             }
         },
-        async changePass(){
-            var pl = {
-                id: this.id,
-                new_password: this.pl_change.password,
-                new_password_confirmation: this.pl_change.confirm_password
-            }
-            const confirmed = await Swal.fire({
-                title: 'Change password of this user?',
-                html: `<table class="table table-bordered table-sm font-size-12 text-start">
-                            <tbody>
-                                <tr>
-                                    <th>Username</th>
-                                        <td>${this.pl.username}</td>
-                                </tr>
-                                <tr>
-                                    <th>Role</th>
-                                    <td>${this.pl.role}</td>
-                                </tr>
-                            </tbody>
-                        </table>`,
-                icon: 'warning',
-                showCancelButton: true,
-                cancelButtonColor: '#74788d',
-            }).then((result) => {
-                return result.value;
-            });
-            if (confirmed) {
-                if(this.pl_change.password == this.pl_change.confirm_password){
-                    const res = await this.userChangePass(pl);
-                    if (res.status == 200|| res.status == 'success') {
-                        Swal.fire({
-                            title: "Success",
-                            html: `User password changed.`,
-                            type: "success",
-                            icon: "success",
-                            padding: "2em",
-                        });
-                        this.initList(1);
-                        this.change_password_modal = false;
-                    }else{
-                        Swal.fire({
-                            html: res,
-                            type: "error",
-                            icon: "error",
-                            padding: "2em",
-                        });
-                    }
-                }else{
-                    Swal.fire({
-                        html: 'New password & Confirm Password are not the same.',
-                        type: "error",
-                        icon: "error",
-                        padding: "2em",
-                    });
-                }
-                
-            }
-        },
         async updateUser(){
             var pl = {
                 username: this.pl.username,
                 first_name: this.pl.first_name,
                 last_name: this.pl.last_name,
                 email_address: this.pl.email_address,
+                new_password: this.pl.new_password,
                 address: this.pl.address,
-                // role: this.pl.role,
+                role: this.pl.role,
                 id: this.id,
             }
             const confirmed = await Swal.fire({
@@ -515,7 +381,7 @@ export default {
                 return result.value;
             });
             if (confirmed) {
-                const res = await this.userUpdate(pl);
+                const res = await this.adminUpdate(pl);
                 if (res.status == 200|| res.status == 'success') {
                     Swal.fire({
                         title: "Success",
@@ -557,54 +423,11 @@ export default {
                 return result.value;
             });
             if (confirmed) {
-                const res = await this.userDelete(pl);
+                const res = await this.adminDelete(pl);
                 if (res.status == 200|| res.status == 'success') {
                     Swal.fire({
                         title: "Success",
                         html: `Admin successfully deleted.`,
-                        type: "success",
-                        icon: "success",
-                        padding: "2em",
-                    });
-                    this.initList(1);
-                }else{
-                    Swal.fire({
-                        html: res,
-                        type: "error",
-                        icon: "error",
-                        padding: "2em",
-                    });
-                }
-            }
-        },
-        async changeBan(data,isBan){
-            console.log(isBan)
-            var pl = {
-                id: data._id,
-                is_ban: isBan
-            }
-            const confirmed = await Swal.fire({
-                title: 'Change status of this user?',
-                html: `<table class="table table-bordered table-sm font-size-12 text-start">
-                            <tbody>
-                                <tr>
-                                    <th>Username</th>
-                                    <td>${data.username}</td>
-                                </tr>
-                            </tbody>
-                        </table>`,
-                icon: 'warning',
-                showCancelButton: true,
-                cancelButtonColor: '#74788d',
-            }).then((result) => {
-                return result.value;
-            });
-            if (confirmed) {
-                const res = await this.changeBanStatus(pl);
-                if (res.status == 200|| res.status == 'success') {
-                    Swal.fire({
-                        title: "Success",
-                        html: `Status successfully changed.`,
                         type: "success",
                         icon: "success",
                         padding: "2em",
@@ -626,19 +449,3 @@ export default {
     },
 };
 </script>
-<style scoped>
-    
-.eye-width {
-    border-radius: 0px !important;
-}
-
-.eye-btn {
-    background-color: transparent;
-    border: none;
-    border-radius: 0px !important;
-	position: absolute;
-	right: 40px;
-	margin-top: 8px;
-	color: rgb(95, 95, 95) !important;
-}
-</style>

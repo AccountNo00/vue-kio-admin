@@ -840,6 +840,12 @@ export const menuItems = [
         subItems: [
             {
                 id: 1,
+                label: "Admin List",
+                link: "/admin-list",
+                parentId: 2,
+            },
+            {
+                id: 1,
                 label: "User List",
                 link: "/user-list",
                 parentId: 2,
